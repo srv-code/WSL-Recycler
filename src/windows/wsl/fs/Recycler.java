@@ -1,4 +1,4 @@
-package windows.wsl.util;
+package windows.wsl.fs;
 
 import java.io.BufferedReader;
 import java.util.Date;
@@ -10,10 +10,12 @@ import java.io.IOException;
 
 
 /**
- * Seems not to be working as java.io.File#renameTo won't work across heterogeneous file systems.
+ * This program seems not to be working reliably, especially in Windows Subsystem 
+ * for Linux (WSL), as java.io.File#renameTo won't work across heterogeneous file systems.
  * Solutions can be to use java.nio classes as they work platform independently.
- * But its always better to use shell scripts for this kind of small utilities, development time will be 
- * much lesser and guaranteed to work reliably.
+ * But its always better to use a native solution like using shell scripts for 
+ * building this kind of small utilities, development time will be much lesser 
+ * and guaranteed to work reliably.
  */
 public class Recycler {
     public static void main(final String[] args) throws Exception {
@@ -35,7 +37,7 @@ public class Recycler {
     private boolean doFlush;
     private boolean showLog;
 
-    private List<File> fileList = new ArrayList<>();
+    private final List<File> fileList = new ArrayList<>();
 
     public Recycler() throws IOException {        
         if(RECYCLE_BIN.exists()) {
@@ -101,16 +103,16 @@ public class Recycler {
                 case "-h":
                 case "--help":
                     showHelp();
-                    System.exit(0);
+                    System.exit(StandardExitCodes.NORMAL);
 
                 default:
                     fileList.add(new File(commandLineArgs[i]));
             }
         }
 
-        if(fileList.size() == 0) {            
+        if(fileList.isEmpty()) {
             showHelp();
-            System.exit(1);
+            System.exit(StandardExitCodes.ERROR);
         }
         doRecycle = true;
     }

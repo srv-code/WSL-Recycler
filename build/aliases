@@ -1,0 +1,2 @@
+alias b='javac -d out src/windows/wsl/fs/StandardExitCodes.java src/windows/wsl/fs/Recycler.java'
+alias r='java -cp out windows.wsl.fs.Recycler'
