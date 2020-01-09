@@ -1,6 +1,6 @@
 # WSL Recycler
 ## Synopsis
-A utility to recycle files rather than to delete them permanently from the disk.
+A utility program to recycle files rather than to delete them permanently from the disk.
 
 ## Note:
 ##### Active development of this project has been ceased in favor of the project named 'Trash' (https://github.com/srv-code/Trash).
